@@ -4,17 +4,21 @@ part 'savings.g.dart';
 @HiveType(typeId: 0)
 class Savings extends HiveObject {
   @HiveField(0)
-  String? name;
+  late String? name;
 
   @HiveField(1)
-  String? money;
+  late String? money;
 
   @HiveField(2)
-  String? dorm;
+  late String? dorm;
+
+  @HiveField(3)
+  late String? date;
 
   Savings({
     this.name,
     this.money,
     this.dorm,
+    this.date,
   });
 }

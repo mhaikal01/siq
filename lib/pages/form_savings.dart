@@ -27,8 +27,8 @@ class _FormSavingsState extends State<FormSavings> {
   Widget build(BuildContext context) {
     if (widget.isEdit!) {
       controllerName.text = widget.savingsModel!.name!;
-      controllerName.text = widget.savingsModel!.money!.toString();
-      controllerName.text = widget.savingsModel!.dorm!.toString();
+      controllerMoney.text = widget.savingsModel!.money!.toString();
+      controllerDorm.text = widget.savingsModel!.dorm!;
     }
 
     return SafeArea(
@@ -77,6 +77,26 @@ class _FormSavingsState extends State<FormSavings> {
                   ],
                 ),
                 SizedBox(
+                  height: 60,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Asrama: ',
+                      style: blackTextStyle.copyWith(fontSize: 18),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: controllerDorm,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
                   height: 30,
                 ),
                 Container(
@@ -114,9 +134,10 @@ class _FormSavingsState extends State<FormSavings> {
                         }
                       }
                       Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => SavePage()),
-                          (route) => false);
+                        context,
+                        MaterialPageRoute(builder: (context) => SavePage()),
+                        (route) => false,
+                      );
                     },
                   ),
                 ),

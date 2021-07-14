@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:siq/model/savings.dart';
 import 'package:siq/pages/form_savings.dart';
-import 'package:siq/pages/home_page.dart';
 import 'package:siq/theme.dart';
 
 class SavePage extends StatefulWidget {
@@ -35,174 +34,113 @@ class _SavePageState extends State<SavePage> {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset(
-              'assets/backcopy.jpg',
+            Container(
               width: MediaQuery.of(context).size.width,
               height: 250,
-              fit: BoxFit.cover,
-            ),
-            // Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   height: 250,
-            //   decoration: BoxDecoration(
-            //     image: DecorationImage(
-            //       fit: BoxFit.fill,
-            //       image: AssetImage('assets/backcopy.jpg'),
-            //     ),
-            //   ),
-            // ),
-
-            // NOTE : BACK BUTTOM
-
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: edge,
-                vertical: 20,
-              ),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                        ),
-                      );
-                    },
-                    child: Image.asset(
-                      'assets/back.png',
-                      width: 40,
-                    ),
-                  )
-                ],
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage('assets/backcopy.jpg'),
+                ),
               ),
             ),
 
             // NOTE : LIST WIDGETS -> SAVE TILE
 
             ListView.builder(
-                itemCount: listSavings.length,
-                itemBuilder: (context, position) {
-                  Savings getSavings = listSavings[position];
-                  var money = getSavings.money;
-                  var dorm = getSavings.dorm;
-                  return Card(
-                    elevation: 8,
-                    child: Container(
-                      height: 80,
-                      padding: EdgeInsets.all(15),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              getSavings.name!,
-                              style: blackTextStyle.copyWith(fontSize: 18),
-                            ),
+              padding: EdgeInsets.symmetric(vertical: 225.0),
+              itemCount: listSavings.length,
+              itemBuilder: (context, position) {
+                Savings getSaving = listSavings[position];
+                var money = getSaving.money;
+                var dorm = getSaving.dorm;
+                return Card(
+                  elevation: 8,
+                  child: Container(
+                    height: 80,
+                    padding: EdgeInsets.all(15),
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            getSaving.name ?? "",
+                            style: blackTextStyle.copyWith(fontSize: 18),
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              margin: EdgeInsets.only(right: 45),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.edit),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            margin: EdgeInsets.only(right: 80),
                             child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => FormSavings(
+                                      isEdit: true,
+                                      position: position,
+                                      savingsModel: getSaving,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: Icon(Icons.edit),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              'Simpanan: $money | Asrama: $dorm',
-                              style: blackTextStyle.copyWith(fontSize: 18),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            margin: EdgeInsets.only(right: 40),
+                            child: IconButton(
+                              onPressed: () {
+                                final box = Hive.box<Savings>('savings');
+                                box.add(Savings(
+                                  name: getSaving.name,
+                                  money: getSaving.money,
+                                  dorm: getSaving.dorm,
+                                ));
+                                setState(() {
+                                  listSavings.add(
+                                    Savings(
+                                      name: getSaving.name,
+                                      money: getSaving.money,
+                                      dorm: getSaving.dorm,
+                                    ),
+                                  );
+                                });
+                              },
+                              icon: Icon(Icons.copy),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            onPressed: () {
+                              final box = Hive.box<Savings>('savings');
+                              box.deleteAt(position);
+                              setState(() {
+                                listSavings.removeAt(position);
+                              });
+                            },
+                            icon: Icon(Icons.delete),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            'Simpanan: $money | Asrama: $dorm',
+                            style: blackTextStyle.copyWith(fontSize: 14),
+                          ),
+                        ),
+                      ],
                     ),
-                  );
-                })
-            //   (
-            //   padding: EdgeInsets.zero,
-            //   children: [
-            //     SizedBox(
-            //       height: 225,
-            //     ),
-            //     Container(
-            //       padding: EdgeInsets.symmetric(
-            //         horizontal: defaultMargin,
-            //       ),
-            //       decoration: BoxDecoration(
-            //         borderRadius:
-            //             BorderRadius.vertical(top: Radius.circular(30)),
-            //         color: backgroundColor,
-            //       ),
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           SizedBox(
-            //             height: 30,
-            //           ),
-            //           Text(
-            //             'disini list nama Savingssss',
-            //             style: blackTextStyle.copyWith(fontSize: 22),
-            //           ),
-            //           SizedBox(
-            //             height: 25,
-            //           ),
-            //           Text(
-            //             'ini namanya',
-            //             style: blackTextStyle.copyWith(fontSize: 18),
-            //           ),
-            //           SizedBox(
-            //             height: 15,
-            //           ),
-
-            //           // SavingsTile(),
-
-            //           // NOTE : SUBMITS
-
-            //           SizedBox(
-            //             height: 30,
-            //           ),
-            //           Container(
-            //             width: MediaQuery.of(context).size.width -
-            //                 (2 * defaultMargin),
-            //             height: 50,
-            //             child: TextButton(
-            //               style: TextButton.styleFrom(
-            //                 backgroundColor: butonColor,
-            //                 primary: Colors.white,
-            //               ),
-            //               child: Text(
-            //                 'Submit',
-            //               ),
-            //               onPressed: () {
-            //                 Navigator.push(
-            //                   context,
-            //                   MaterialPageRoute(
-            //                     builder: (context) => HomePage(),
-            //                   ),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //           SizedBox(
-            //             height: 80,
-            //           ),
-            //         ],
-            //       ),
-            //     )
-            //   ],
-            // )
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -215,7 +153,7 @@ class _SavePageState extends State<SavePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FormSavings(),
+              builder: (context) => FormSavings(isEdit: false),
             ),
           );
         },
