@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:siq/pages/absent_page.dart';
+
 import 'package:siq/pages/akun_page.dart';
+import 'package:siq/pages/name_page.dart';
 import 'package:siq/pages/riwayat_page.dart';
 import 'package:siq/pages/save_page.dart';
 import 'package:siq/theme.dart';
@@ -53,7 +54,7 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AbsentPage(),
+                            builder: (context) => NamePage(),
                           ),
                         );
                       },
