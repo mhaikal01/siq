@@ -20,8 +20,10 @@ class _NamePageState extends State<NamePage> {
 
     _loading = true;
     SantriProvider.getSantri().then((santris) {
-      _santris = santris;
-      _loading = false;
+      setState(() {
+        _santris = santris;
+        _loading = false;
+      });
     });
   }
 
