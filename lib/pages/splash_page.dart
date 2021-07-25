@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siq/pages/save_page.dart';
+import 'package:siq/pages/home_page.dart';
 import 'package:siq/theme.dart';
 
 class SplashPage extends StatelessWidget {
@@ -56,7 +56,7 @@ class SplashPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SavePage(),
+                      builder: (context) => HomePage(),
                     ),
                   );
                 },

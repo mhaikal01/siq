@@ -22,6 +22,7 @@ class Santri {
   String? nameSantri;
   String? dorm;
   String? imageUrl;
+  bool hadir = false;
 
   factory Santri.fromJson(Map<String, dynamic> json) => Santri(
         idSantri: json["id_santri"],

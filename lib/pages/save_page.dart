@@ -48,7 +48,7 @@ class _SavePageState extends State<SavePage> {
             // NOTE : LIST WIDGETS -> SAVE TILE
 
             ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 225.0),
+              padding: EdgeInsets.only(top: 225),
               itemCount: listSavings.length,
               itemBuilder: (context, position) {
                 Savings getSaving = listSavings[position];
