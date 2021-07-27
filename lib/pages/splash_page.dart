@@ -2,7 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:siq/pages/home_page.dart';
 import 'package:siq/theme.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
+  @override
+  _SplashPageState createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    var d = Duration(seconds: 3);
+    Future.delayed(d, () {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return HomePage();
+        }),
+        (route) => false,
+      );
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
