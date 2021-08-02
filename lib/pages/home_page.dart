@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siq/pages/akun_page.dart';
 import 'package:siq/pages/name_page.dart';
@@ -8,7 +9,8 @@ import 'package:siq/widgets/bottom_navbar_item.dart';
 import 'package:siq/widgets/home_card.dart';
 
 class HomePage extends StatelessWidget {
-  get mainAxisAlignment => null;
+  final User? user;
+  HomePage(this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,7 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => HomePage(user),
                   ),
                 );
               },
