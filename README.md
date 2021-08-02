@@ -1,6 +1,6 @@
 # siq
 
-A new Flutter project.
+Projek Untuk Memudahkan para Pembina Santri di Dayah IQ
 
 ## Getting Started
 
