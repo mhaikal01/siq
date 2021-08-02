@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siq/model/kehadiran.dart';
 import 'package:siq/pages/akun_page.dart';
@@ -14,6 +15,8 @@ class RiwayatPage extends StatefulWidget {
 class _RiwayatPageState extends State<RiwayatPage> {
   late List<Kehadiran> _kehadirans = [];
   late bool _loading;
+
+  User? user;
 
   @override
   void initState() {
@@ -81,7 +84,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => HomePage(user),
                   ),
                 );
               },
