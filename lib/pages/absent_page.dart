@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siq/model/save.dart';
@@ -35,30 +36,30 @@ class AbsentPage extends StatelessWidget {
 
             // NOTE : BACK BUTTOM
 
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: edge,
-                vertical: 20,
-              ),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                        ),
-                      );
-                    },
-                    child: Image.asset(
-                      'assets/back.png',
-                      width: 40,
-                    ),
-                  )
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(
+            //     horizontal: edge,
+            //     vertical: 20,
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       InkWell(
+            //         onTap: () {
+            //           Navigator.pop(
+            //             context,
+            //             MaterialPageRoute(
+            //               builder: (context) => HomePage(),
+            //             ),
+            //           );
+            //         },
+            //         child: Image.asset(
+            //           'assets/back.png',
+            //           width: 40,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
             ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -111,10 +112,11 @@ class AbsentPage extends StatelessWidget {
                       'Submit',
                     ),
                     onPressed: () {
+                      User? user;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(),
+                          builder: (context) => HomePage(user),
                         ),
                       );
                     },
