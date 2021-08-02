@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siq/pages/home_page.dart';
 import 'package:siq/theme.dart';
+import 'package:siq/wrapper.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -8,6 +10,8 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  User? user;
+
   @override
   void initState() {
     var d = Duration(seconds: 3);
@@ -15,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) {
-          return HomePage();
+          return Wrapper();
         }),
         (route) => false,
       );
@@ -66,7 +70,7 @@ class _SplashPageState extends State<SplashPage> {
               height: 50,
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: butonColor,
                   primary: Colors.white,
                 ),
                 child: Text(
@@ -76,7 +80,7 @@ class _SplashPageState extends State<SplashPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage(),
+                      builder: (context) => HomePage(user),
                     ),
                   );
                 },
