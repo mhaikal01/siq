@@ -3,12 +3,8 @@ import 'package:siq/model/kehadiran.dart';
 import 'package:siq/model/santri.dart';
 
 class SantriProvider {
-  // API post kehadiran
-  // API dapatkan santri berdasarkan status kehadiran
-
   static const String theUrl = 'http://192.168.43.228/api_santri/select.php';
-  static const String postUrl =
-      'http://192.168.43.228/api_santri/tambah.php'; //ubah url
+  static const String postUrl = 'http://192.168.43.228/api_santri/tambah.php';
   static const String gettUrl =
       'http://192.168.43.228/api_santri/getkehadiran.php';
 
