@@ -1,11 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:siq/pages/login_page.dart';
 import 'package:siq/pages/riwayat_page.dart';
 import 'package:siq/pages/splash_page.dart';
 import 'package:siq/widgets/bottom_navbar_item.dart';
 import '../theme.dart';
 import 'home_page.dart';
+import 'package:siq/services/auth_services.dart';
 
-class AkunPage extends StatelessWidget {
+class AkunPage extends StatefulWidget {
+  @override
+  _AkunPageState createState() => _AkunPageState();
+}
+
+class _AkunPageState extends State<AkunPage> {
+  late Future<void> _auth = AuthServices.signOut();
+  late bool signOut = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,13 +84,21 @@ class AkunPage extends StatelessWidget {
                   child: Text(
                     'Log Out',
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SplashPage(),
-                      ),
-                    );
+                  onPressed: () async {
+                    await _auth.then((_auth) {
+                      setState(() {
+                        _auth = _auth;
+                        signOut = true;
+                      });
+                    });
+                    if (signOut = true) {
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LoginPage();
+                      }), (route) => false);
+                    } else {
+                      return null;
+                    }
                   },
                 ),
               ),
@@ -97,10 +121,11 @@ class AkunPage extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
+                User? user;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => HomePage(user),
                   ),
                 );
               },
