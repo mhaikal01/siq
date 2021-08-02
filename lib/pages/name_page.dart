@@ -66,26 +66,53 @@ class _NamePageState extends State<NamePage> {
                     ),
                     title: Text(santri.nameSantri!),
                     subtitle: Text(santri.dorm!),
-                    trailing: !santri.hadir
-                        ? IconButton(
-                            icon: Icon(
-                              (Icons.done),
-                            ),
-                            onPressed: () {
-                              SantriProvider.postSantri({
-                                'id_name': santri.idSantri,
-                                'name_santri': santri.nameSantri,
-                                'information': 'hadir'
-                              }).then((berhasil) {
-                                if (berhasil) {
-                                  setState(() {
-                                    santri.hadir = true;
-                                  });
-                                }
-                              });
-                            },
-                          )
-                        : Container(height: 0, width: 0),
+                    trailing: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Row(
+                        children: [
+                          !santri.hadir
+                              ? IconButton(
+                                  icon: Icon(
+                                    (Icons.close),
+                                  ),
+                                  onPressed: () {
+                                    SantriProvider.postSantri({
+                                      'id_name': santri.idSantri,
+                                      'name_santri': santri.nameSantri,
+                                      'information': 'alpa'
+                                    }).then((berhasil) {
+                                      if (berhasil) {
+                                        setState(() {
+                                          santri.hadir = true;
+                                        });
+                                      }
+                                    });
+                                  },
+                                )
+                              : Container(height: 0, width: 0),
+                          !santri.hadir
+                              ? IconButton(
+                                  icon: Icon(
+                                    (Icons.done),
+                                  ),
+                                  onPressed: () {
+                                    SantriProvider.postSantri({
+                                      'id_name': santri.idSantri,
+                                      'name_santri': santri.nameSantri,
+                                      'information': 'hadir'
+                                    }).then((berhasil) {
+                                      if (berhasil) {
+                                        setState(() {
+                                          santri.hadir = true;
+                                        });
+                                      }
+                                    });
+                                  },
+                                )
+                              : Container(height: 0, width: 0),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
