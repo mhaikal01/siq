@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:siq/pages/home_page.dart';
 import 'package:siq/theme.dart';
 import 'package:siq/services/auth_services.dart';
 
@@ -10,6 +12,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
+
+  late bool login = false;
+
+  User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 Container(
+                  width:
+                      MediaQuery.of(context).size.width - (2 * defaultMargin),
                   child: Column(
                     children: [
                       TextFormField(
@@ -65,20 +73,33 @@ class _LoginPageState extends State<LoginPage> {
                         height: 30,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width -
-                            (2 * defaultMargin),
+                        width: 161,
                         height: 50,
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: butonColor,
-                            primary: Colors.white,
-                          ),
+                              backgroundColor: butonColor,
+                              primary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              )),
                           child: Text(
                             'Masuk',
                           ),
                           onPressed: () async {
-                            await AuthServices.signIn(
-                                emailController.text, passwordController.text);
+                            await AuthServices.signIn(emailController.text,
+                                    passwordController.text)
+                                .then((_login) {
+                              setState(() {
+                                _login = _login;
+                                login = true;
+                              });
+                              if (login = true) {
+                                Navigator.pushAndRemoveUntil(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return HomePage(user);
+                                }), (route) => false);
+                              }
+                            });
                           },
                         ),
                       ),
