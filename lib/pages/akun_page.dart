@@ -49,27 +49,27 @@ class _AkunPageState extends State<AkunPage> {
               SizedBox(
                 height: 98,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width - (2 * defaultMargin),
-                height: 50,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: butonColor,
-                    primary: Colors.white,
-                  ),
-                  child: Text(
-                    'Ganti Password',
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SplashPage(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width - (2 * defaultMargin),
+              //   height: 50,
+              //   child: TextButton(
+              //     style: TextButton.styleFrom(
+              //       backgroundColor: butonColor,
+              //       primary: Colors.white,
+              //     ),
+              //     child: Text(
+              //       'Ganti Password',
+              //     ),
+              //     onPressed: () {
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => SplashPage(),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
               SizedBox(
                 height: 23,
               ),
