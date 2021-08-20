@@ -14,16 +14,22 @@ class SavePage extends StatefulWidget {
 class _SavePageState extends State<SavePage> {
   List<Savings> listSavings = [];
 
+  late List<Savings> list;
+  String text = '';
+
   void getSavings() async {
     final box = await Hive.openBox<Savings>('savings');
+    // var list = listSavings;
     setState(() {
       listSavings = box.values.toList();
+      list = listSavings;
     });
   }
 
   @override
   void initState() {
     getSavings();
+    list = listSavings;
     super.initState();
   }
 
@@ -58,10 +64,13 @@ class _SavePageState extends State<SavePage> {
             // NOTE : LIST WIDGETS -> SAVE TILE
 
             ListView.builder(
-              padding: EdgeInsets.only(top: 225),
-              itemCount: listSavings.length,
+              padding: EdgeInsets.only(
+                top: 225,
+                bottom: 80,
+              ),
+              itemCount: list.length,
               itemBuilder: (context, position) {
-                Savings getSaving = listSavings[position];
+                Savings getSaving = list[position];
                 var money = getSaving.money;
                 var dorm = getSaving.dorm;
                 return Card(
@@ -150,6 +159,47 @@ class _SavePageState extends State<SavePage> {
                   ),
                 );
               },
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 30,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 40,
+                    width: 250,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(10.0),
+                        hintText: 'Searc....',
+                      ),
+                      onChanged: (text) {
+                        text = text;
+                        list = listSavings.where((getSaving) {
+                          final saveName = getSaving.name!.toLowerCase();
+                          final searchLower = text.toLowerCase();
+                          return saveName.contains(searchLower);
+                        }).toList();
+                        setState(() {
+                          this.list = list;
+                          this.text = text;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
