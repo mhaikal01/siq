@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthServices {
   static FirebaseAuth _auth = FirebaseAuth.instance;
@@ -22,9 +23,8 @@ class AuthServices {
           email: email, password: password);
       User? user = userCredential.user;
       return user;
-    } catch (e) {
-      print(e.toString());
-      return null;
+    } on FirebaseAuthException catch (error) {
+      Fluttertoast.showToast(msg: error.message!, gravity: ToastGravity.BOTTOM);
     }
   }
 
