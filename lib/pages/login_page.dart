@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:siq/pages/home_page.dart';
 import 'package:siq/theme.dart';
 import 'package:siq/services/auth_services.dart';
 
@@ -86,20 +85,10 @@ class _LoginPageState extends State<LoginPage> {
                             'Masuk',
                           ),
                           onPressed: () async {
-                            await AuthServices.signIn(emailController.text,
-                                    passwordController.text)
-                                .then((_login) {
-                              setState(() {
-                                _login = _login;
-                                login = true;
-                              });
-                              if (login = true) {
-                                Navigator.pushAndRemoveUntil(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return HomePage(user);
-                                }), (route) => false);
-                              }
-                            });
+                            await AuthServices.signIn(
+                              emailController.text,
+                              passwordController.text,
+                            );
                           },
                         ),
                       ),
